@@ -3,7 +3,6 @@ let jwt = require('jsonwebtoken');
 let fs = require('fs');
 let path = require('path');
 
-// Đọc Public Key
 const publicKey = fs.readFileSync(path.join(__dirname, '../public.pem'), 'utf8');
 
 module.exports = {
@@ -14,7 +13,6 @@ module.exports = {
             }
             let token = req.headers.authorization.split(" ")[1];
             
-            // XÁC THỰC VỚI RS256 VÀ PUBLIC KEY
             let result = jwt.verify(token, publicKey, { algorithms: ['RS256'] });
 
             let user = await userController.GetAnUserById(result.id);
